@@ -12,11 +12,21 @@ WORK_MIN = 1
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 reps=0
-timer_text=None
+timer=None
+timer_label=None
+check_label=None
 # ---------------------------- TIMER RESET ------------------------------- # 
 def reset_timer():
-    my_window.after_cancel(timer_text)
-# ---------------------------- TIMER MECHANISM ------------------------------- # 
+    my_window.after_cancel(timer)
+    canvas.itemconfig(timer_text, text="0:00")
+    global timer_label
+    timer_label.config(text="timer")
+    global  reps
+    reps=0
+    global check_label
+    check_label.config(text="", fg=GREEN, bg=YELLOW)
+
+# ---------------------------- TIMER MECHANISM ------------------------------- #
 def start_timer():
     global reps
     reps+=1
@@ -26,16 +36,14 @@ def start_timer():
 
     if reps%8==0:
         count_down(long_break_sec)
-        timer_label = Label(text="Long Break", fg=RED, bg=YELLOW, font=(FONT_NAME, 22, "bold"))
-        timer_label.grid(row=0, column=1)
+        global timer_label
+        timer_label.config(text="Long Break", fg=RED, bg=YELLOW, font=(FONT_NAME, 22, "bold"))
     elif reps%2==1:
         count_down(work_sec)
-        timer_label = Label(text="Work", fg=GREEN, bg=YELLOW, font=(FONT_NAME, 22, "bold"))
-        timer_label.grid(row=0, column=1)
+        timer_label.config(text="Work", fg=GREEN, bg=YELLOW, font=(FONT_NAME, 22, "bold"))
     elif reps%2==0:
         count_down(short_break_sec)
-        timer_label = Label(text="Short Break", fg=PINK, bg=YELLOW, font=(FONT_NAME, 22, "bold"))
-        timer_label.grid(row=0, column=1)
+        timer_label.config(text="Short Break", fg=PINK, bg=YELLOW, font=(FONT_NAME, 22, "bold"))
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
 def count_down(count):
@@ -44,16 +52,17 @@ def count_down(count):
         sec_count=count%60
         if sec_count < 10:
             sec_count = f"0{sec_count}"
-        global timer_text
+        global timer
         canvas.itemconfig(timer_text, text=f"{min_count}:{sec_count}" )
-        my_window.after(250, count_down, count-1)
+        timer=my_window.after(250, count_down, count-1)
     else:
         start_timer()
         mark=""
         work_sessions=math.floor(reps/2)
+        global check_label
         for _ in range(work_sessions):
             mark+="✔"
-        check_label = Label(text=f"{mark}", fg=GREEN, bg=YELLOW)
+        check_label = Label(text=f"{mark}", bg=YELLOW)
         check_label.grid(row=3, column=1)
 
 # ---------------------------- UI SETUP ------------------------------- #
