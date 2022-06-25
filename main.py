@@ -1,4 +1,5 @@
 from tkinter import *
+import math
 # ---------------------------- CONSTANTS ------------------------------- #
 from turtle import bgpic
 
@@ -15,11 +16,13 @@ LONG_BREAK_MIN = 20
 
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 def click_on_start():
-    count_down(5)
+    count_down(5*60)
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
 def count_down(count):
     if count>= 0:
-        canvas.itemconfig(timer_text, text=count)
+        min_count=math.floor(count/60)
+        sec_count=count%60
+        canvas.itemconfig(timer_text, text=f"{min_count}:{sec_count}" )
         my_window.after(1000, count_down, count-1)
 # ---------------------------- UI SETUP ------------------------------- #
 my_window=Tk()
