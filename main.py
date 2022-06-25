@@ -18,7 +18,7 @@ LONG_BREAK_MIN = 20
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
 def count_down(count):
     if count>= 0:
-        print(count)
+        canvas.itemconfig(timer_text, text=count)
         my_window.after(1000, count_down, count-1)
 # ---------------------------- UI SETUP ------------------------------- #
 my_window=Tk()
@@ -30,7 +30,6 @@ my_window.title("PomoDoro")
 #     print(another_thing)
 #
 # my_window.after(1000, do_something, "Hello world", "test",456)
-count_down(5)
 
 my_window.config(padx=100, pady=50, bg=YELLOW)
 canvas=Canvas(width=200, height=224, bg=YELLOW, highlightthickness=0)
@@ -39,9 +38,10 @@ canvas=Canvas(width=200, height=224, bg=YELLOW, highlightthickness=0)
 tomato_img=PhotoImage(file="tomato.png")
 canvas.create_image(100,112,image=tomato_img)
 
-canvas.create_text(100,130, text="00:00", fill="white", font=(FONT_NAME,22,"bold"))
+timer_text=canvas.create_text(100,130, text="00:00", fill="white", font=(FONT_NAME,22,"bold"))
 # canvas.pack()
 canvas.grid(row=1,column=1)
+count_down(5)
 
 timer_label=Label(text="Timer", fg=GREEN, bg=YELLOW, font=(FONT_NAME,22,"bold"))
 timer_label.grid(row=0,column=1)
