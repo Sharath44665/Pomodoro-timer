@@ -16,17 +16,20 @@ LONG_BREAK_MIN = 20
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
-
+def count_down(count):
+    print(count)
+    my_window.after(1000, count_down, count-1)
 # ---------------------------- UI SETUP ------------------------------- #
 my_window=Tk()
 my_window.title("PomoDoro")
 
-def do_something(thing, something, another_thing):
-    print(thing)
-    print(something)
-    print(another_thing)
-
-my_window.after(1000, do_something, "Hello world", "test",456)
+# def do_something(thing, something, another_thing):
+#     print(thing)
+#     print(something)
+#     print(another_thing)
+#
+# my_window.after(1000, do_something, "Hello world", "test",456)
+count_down(5)
 
 my_window.config(padx=100, pady=50, bg=YELLOW)
 canvas=Canvas(width=200, height=224, bg=YELLOW, highlightthickness=0)
