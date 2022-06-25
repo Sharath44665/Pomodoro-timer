@@ -17,8 +17,9 @@ LONG_BREAK_MIN = 20
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
 def count_down(count):
-    print(count)
-    my_window.after(1000, count_down, count-1)
+    if count>= 0:
+        print(count)
+        my_window.after(1000, count_down, count-1)
 # ---------------------------- UI SETUP ------------------------------- #
 my_window=Tk()
 my_window.title("PomoDoro")
