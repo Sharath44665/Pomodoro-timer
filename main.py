@@ -22,8 +22,10 @@ def count_down(count):
     if count>= 0:
         min_count=math.floor(count/60)
         sec_count=count%60
+        if sec_count < 10:
+            sec_count = f"0{sec_count}"
         canvas.itemconfig(timer_text, text=f"{min_count}:{sec_count}" )
-        my_window.after(1000, count_down, count-1)
+        my_window.after(250, count_down, count-1)
 # ---------------------------- UI SETUP ------------------------------- #
 my_window=Tk()
 my_window.title("PomoDoro")
